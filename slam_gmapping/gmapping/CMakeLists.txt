@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(gmapping)
 
-find_package(catkin REQUIRED nav_msgs nodelet openslam_gmapping roscpp tf rosbag_storage)
+find_package(catkin REQUIRED nav_msgs nodelet hvu_openslam_gmapping roscpp tf rosbag_storage)
 
 find_package(Boost REQUIRED)
 
@@ -11,10 +11,10 @@ include_directories(src)
 
 catkin_package()
 
-add_executable(slam_gmapping src/slam_gmapping.cpp src/main.cpp)
-target_link_libraries(slam_gmapping ${Boost_LIBRARIES} ${catkin_LIBRARIES})
+add_executable(hvu_slam_gmapping src/slam_gmapping.cpp src/main.cpp)
+target_link_libraries(hvu_slam_gmapping ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 if(catkin_EXPORTED_TARGETS)
-  add_dependencies(slam_gmapping ${catkin_EXPORTED_TARGETS})
+  add_dependencies(hvu_slam_gmapping ${catkin_EXPORTED_TARGETS})
 endif()
 
 add_library(slam_gmapping_nodelet src/slam_gmapping.cpp src/nodelet.cpp)
@@ -26,7 +26,7 @@ if(catkin_EXPORTED_TARGETS)
 add_dependencies(slam_gmapping_replay ${catkin_EXPORTED_TARGETS})
 endif()
 
-install(TARGETS slam_gmapping slam_gmapping_nodelet slam_gmapping_replay
+install(TARGETS hvu_slam_gmapping slam_gmapping_nodelet slam_gmapping_replay
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -82,7 +82,7 @@ if(CATKIN_ENABLE_TESTING)
      ${PROJECT_NAME}_test_upside_down.bag
      ${PROJECT_NAME}_hallway_slow_2011-03-04-21-41-33.bag
      ${PROJECT_NAME}_basic_localization_stage_groundtruth.pgm
-     slam_gmapping
+     hvu_slam_gmapping
      slam_gmapping_replay
   )
   add_rostest(test/basic_localization_stage.launch DEPENDENCIES ${LOCAL_DEPENDENCIES})
