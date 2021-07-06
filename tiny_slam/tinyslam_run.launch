@@ -15,7 +15,7 @@
     <param name="skip_exceeding_lsr_vals" value="false" />
 
     <!-- Frame_names setup -->
-    <param name="odom" value="odom_combined" />
+    <param name="odom" value="odom" />
     <param name="robot_pose" value="robot_pose" />
 
     <!-- Map setup-->
@@ -42,13 +42,11 @@
 
   </node>
 
-  <node name="player" pkg="rosbag" type="play"
-        args="--delay=3 --clock --rate $(arg rate) $(arg path)" />
-
   <node name="rviz" pkg="rviz" type="rviz" respawn="true"
         args="-d $(find tiny_slam)/rviz/debug.rviz" />
 
   <node name="MapTrasformPublisher" pkg="tf" type="static_transform_publisher"
-        args="0 0 0 0 0 0 odom_combined map 250" cwd="node" required="true"/>
+        args="0 0 0 0 0 0 odom map 250" cwd="node" required="true"/>
+
 
 </launch>

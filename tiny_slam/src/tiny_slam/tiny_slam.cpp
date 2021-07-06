@@ -162,7 +162,7 @@ void init_constants_for_ros(double &ros_tf_buffer_size,
 }
 
 void init_frame_names(std::string &frame_odom, std::string &frame_robot_pose) {
-  ros::param::param<std::string>("~odom", frame_odom, "odom_combined");
+  ros::param::param<std::string>("~odom", frame_odom, "odom");
   ros::param::param<std::string>("~robot_pose", frame_robot_pose, "robot_pose");
 }
 
@@ -188,7 +188,7 @@ int main(int argc, char** argv) {
                          ros_filter_queue, ros_subscr_queue);
   init_frame_names(frame_odom, frame_robot_pose);
   TopicWithTransform<sensor_msgs::LaserScan> scan_observer(nh,
-    "laser_scan", frame_odom, ros_tf_buffer_size,
+    "scan", frame_odom, ros_tf_buffer_size,
     ros_filter_queue, ros_subscr_queue);
   scan_observer.subscribe(slam);
 
