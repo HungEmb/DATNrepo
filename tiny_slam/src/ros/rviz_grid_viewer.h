@@ -47,9 +47,9 @@ public: // method
  */
   void show_map(const GridMap &map) {
     // TODO: move map publishing rate to parameter
-    if ((ros::Time::now() - _last_pub_time).toSec() < map_publishing_rate) {
-      return;
-    }
+    // if ((ros::Time::now() - _last_pub_time).toSec() < map_publishing_rate) {
+    //   return;
+    // }
 
     nav_msgs::OccupancyGrid map_msg;
     map_msg.info.map_load_time = ros::Time::now();
@@ -68,7 +68,7 @@ public: // method
         map_msg.data.push_back(cell_value);
       }
     }
-
+    
     _map_pub.publish(map_msg);
     _last_pub_time = ros::Time::now();
   }
