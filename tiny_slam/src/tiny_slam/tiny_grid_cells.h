@@ -15,53 +15,6 @@
 #include "../core/maps/grid_map.h"
 
 //------------------------------------------------------------------------------
-// Base cell
-
-/*!
- * \brief The grid cell's model presented in the original tinySLAM paper.
- *
- * The probability is updated by the following rule:
- * \f[p_i=(1-\alpha)\cdot p_{i-1}+\alpha\cdot p_{new}.\f]
- */
-class BaseTinyCell : public GridCell {
-public:
-  /*!
-   * Sets the value of the probability \f$p_0=0.5\f$.
-   */
-  BaseTinyCell(): _prob(0.5) {}
-  /*!
-   * Returns the estimated probability.
-   */
-  double value() const override { return _prob; }
-  /*!
-   * Merges a given probability with the stored one using a quality as a weight.
-   * \param[in] value   - a value of the probability \f$p_{new}\f$.
-   * \param[in] quality - the quality of the experiment value \f$\alpha\f$.
-   */
-  void set_value(const Occupancy &value, double quality) override {
-    _prob = (1.0 - quality) * _prob + quality * value.prob_occ;
-  }
-private:
-  double _prob;
-};
-
-/*!
- * \brief A strategy creates cells of the base tiny model (BaseTinyCell).
- *
- * This class is inherited from an abstract cell factory
- * and generates cells with the base rule of the probability calculation.
- */
-class TinyBaseCellFactory : public GridCellFactory {
-public:
-  /*!
-   * Creates a pointer to an instance of BaseTinyCell.
-   */
-  std::shared_ptr<GridCell> create_cell() override {
-    return std::shared_ptr<GridCell>(new BaseTinyCell());
-  }
-};
-
-//------------------------------------------------------------------------------
 // Modified cell
 
 /*!

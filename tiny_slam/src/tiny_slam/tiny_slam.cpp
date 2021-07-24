@@ -70,11 +70,7 @@ std::shared_ptr<GridCellFactory> init_cell_factory(TinyWorldParams &params) {
   std::string cell_type;
   ros::param::param<std::string>("~cell_type", cell_type, "avg");
 
-  if (cell_type == "base") {
-    params.localized_scan_quality = 0.2;
-    params.raw_scan_quality = 0.1;
-    return std::shared_ptr<GridCellFactory>{new TinyBaseCellFactory()};
-  } else if (cell_type == "avg") {
+  if (cell_type == "avg") {
     params.localized_scan_quality = 0.9;
     params.raw_scan_quality = 0.6;
     return std::shared_ptr<GridCellFactory>{new TinyAvgCellFactory()};
@@ -186,7 +182,8 @@ int main(int argc, char** argv) {
   std::string frame_odom, frame_robot_pose;
   init_constants_for_ros(ros_tf_buffer_size, ros_map_publishing_rate,
                          ros_filter_queue, ros_subscr_queue);
-  init_frame_names(frame_odom, frame_robot_pose);
+  init_frame_names(frame_odom, frame_robot_pose);\
+
   TopicWithTransform<sensor_msgs::LaserScan> scan_observer(nh,
     "scan", frame_odom, ros_tf_buffer_size,
     ros_filter_queue, ros_subscr_queue);

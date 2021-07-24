@@ -1,7 +1,7 @@
 <launch>
   <machine name="local" address="localhost" default="true" />
 
-  <param name="use_sim_time" value="true"/>
+  <param name="use_sim_time" value="false"/>
   <arg name="dataset" default="" />
   <arg name="rate" default="1.0" />
 
@@ -19,9 +19,9 @@
     <param name="robot_pose" value="robot_pose" />
 
     <!-- Map setup-->
-    <param name="map_height_in_meters" value="50" />
-    <param name="map_width_in_meters" value="50" />
-    <param name="map_meters_per_cell" value="0.1" />
+    <param name="map_height_in_meters" value="10" />
+    <param name="map_width_in_meters" value="10" />
+    <param name="map_meters_per_cell" value="0.01" />
 
     <!-- Internal constants setup -->
     <param name="base_occupied_prob" value="0.95" />

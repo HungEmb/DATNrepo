@@ -38,6 +38,7 @@ public: //methods
     TransformedLaserScan laser_scan;
     laser_scan.quality = 1.0;
     double angle = msg->angle_min;
+    _skip_max_vals = true;
 
     for (const auto &range : msg->ranges) {
       ScanPoint sp(range, angle);
